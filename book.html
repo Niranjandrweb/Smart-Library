@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Library</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #121212;
+      color: white;
+    }
+
+    header {
+      background-color: #1E90FF;
+      padding: 15px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .search-bar {
+      margin: 20px;
+      display: flex;
+      align-items: center;
+    }
+
+    .search-bar input {
+      flex: 1;
+      padding: 10px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      background-color: #333;
+      color: white;
+      margin-right: 10px;
+    }
+
+    .search-bar button {
+      padding: 10px 15px;
+      font-size: 16px;
+      background-color: #1E90FF;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+    }
+
+    .book-list {
+      margin: 20px;
+    }
+
+    .book {
+      background-color: #222;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    .book h3 {
+      margin: 0;
+    }
+
+    .book p {
+      margin: 5px 0;
+      color: gray;
+    }
+
+    .status {
+      font-weight: bold;
+    }
+
+    .status.available {
+      color: green;
+    }
+
+    .status.checked-out {
+      color: red;
+    }
+
+    .scanner-button {
+      background-color: #1E90FF;
+      padding: 15px;
+      text-align: center;
+      border-radius: 8px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      margin: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>Smart Library</header>
+
+  <div class="search-bar">
+    <input type="text" id="searchInput" placeholder="Search for a book...">
+    <button onclick="searchBook()">Search</button>
+  </div>
+
+  <div class="book-list" id="bookList">
+    <!-- Book cards will appear here -->
+  </div>
+
+  <div class="scanner-button" onclick="openScanner()">Open Scanner</div>
+
+  <script>
+    const books = [
+      { title: 'The Great Gatsby', author: 'F. Scott Fitzgerald', status: 'Available' },
+      { title: '1984', author: 'George Orwell', status: 'Checked Out' },
+      { title: 'To Kill a Mockingbird', author: 'Harper Lee', status: 'Available' },
+    ];
+
+    function renderBooks(bookList) {
+      const bookListElement = document.getElementById('bookList');
+      bookListElement.innerHTML = '';
+      bookList.forEach(book => {
+        const bookElement = document.createElement('div');
+        bookElement.className = 'book';
+        bookElement.innerHTML = `
+          <h3>${book.title}</h3>
+          <p>${book.author}</p>
+          <p class="status ${book.status.toLowerCase().replace(' ', '-')}">${book.status}</p>
+        `;
+        bookListElement.appendChild(bookElement);
+      });
+    }
+
+    function searchBook() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      const filteredBooks = books.filter(book => 
+        book.title.toLowerCase().includes(query) || 
+        book.author.toLowerCase().includes(query)
+      );
+      renderBooks(filteredBooks);
+    }
+
+    function openScanner() {
+      alert('Scanner feature coming soon!');
+    }
+
+    // Initial render
+    renderBooks(books);
+  </script>
+</body>
+</html>
+
